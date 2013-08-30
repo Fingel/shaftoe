@@ -71,7 +71,7 @@
             $("body > .error").html("")
             email = $("#email").val()
             publickey = $("#publickey").val()
-            $.post('/web/key', {email: email, publickey: publickey }, function(data){
+            $.post('../key', {email: email, publickey: publickey }, function(data){
                 console.log(data.msg);
                 if(data.success){
                     $("#addkey").hide();
@@ -93,7 +93,7 @@
             email = $("#email2").val()
             randomint = Math.floor(Math.random()*(quotes.length-1))
             quote = quotes[randomint]
-            $.post('/web/encrypt', {email : email, message: quote}, function(data){
+            $.post('../encrypt', {email : email, message: quote}, function(data){
                 console.log(data)
                 if(data.success){
                     $("#ciphertext > span").html("<pre>" + data.msg + "</pre>")

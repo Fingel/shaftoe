@@ -13,6 +13,10 @@ $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
     'db.options' => $connectionParams
 ));
 
+$app->get('/', function(Request $request){
+    return "<a href=\"https://github.com/AustinRiba/shaftoe\">https://github.com/AustinRiba/shaftoe</a>";
+});
+
 //POST a new key to the DB
 $app->post('/key', function (Request $request) use ($app){
     $email = $request->get('email');
