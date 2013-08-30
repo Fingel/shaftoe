@@ -28,7 +28,7 @@ $app->post('/key', function (Request $request) use ($app){
         );
         return $app->json($ret);
     }
-    $sql = "INSERT INTO pgweb.pgkeys (email, pgpkey) VALUES(?,?)";
+    $sql = "INSERT INTO $dbname.pgkeys (email, pgpkey) VALUES(?,?)";
     $stmt = $app['db']->prepare($sql);
     $stmt->bindValue(1, $email);
     $stmt->bindValue(2, $key);
@@ -54,7 +54,7 @@ $app->post('/key', function (Request $request) use ($app){
 
 //GET a key from the db
 $app->get('/key/{email}', function($email) use($app){
-    $sql = "SELECT pgpkey from pgweb.pgkeys WHERE email = ?";
+    $sql = "SELECT pgpkey from $dbbname.pgkeys WHERE email = ?";
     $keys = $app['db']->fetchAssoc($sql, array((string) $email));
     $ret = array (
         "key"=> $keys['pgpkey'],
@@ -75,7 +75,7 @@ $app->post('/encrypt', function(Request $request) use ($app){
         );
         return $app->json($ret);
     }
-    $sql = "SELECT pgpkey from pgweb.pgkeys WHERE email = ?";
+    $sql = "SELECT pgpkey from $dbname.pgkeys WHERE email = ?";
     $key = $app['db']->fetchColumn($sql, array((string) $email));
     if(empty($key)){
         $ret = array (
@@ -93,7 +93,7 @@ $app->post('/encrypt', function(Request $request) use ($app){
             "msg"=>"Oh no! Encrypting of the message failed. Make sure your public key is correct. Ive deleted it for you.",
             "success"=>false
         );
-        $sql = "DELETE from pgweb.pgkeys WHERE email = ?";
+        $sql = "DELETE from $dbname.pgkeys WHERE email = ?";
         $stmt = $app['db']->prepare($sql);
         $stmt->bindValue(1, $email);
         $stmt->execute();
