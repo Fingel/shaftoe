@@ -3,7 +3,7 @@ shaftoe
 
 About
 -----
-Shaftoe is a vert simple LAMP script to encrypt messages using PGP public keys. It uses Jason Hinkle's excellent
+Shaftoe is a very simple LAMP script to encrypt messages using PGP public keys. It uses Jason Hinkle's excellent
 [php-gpg](https://github.com/jasonhinkle/php-gpg) libray, which was the only decent openpgp implementation I could find (seriously) that didn't rely on compiled binaries. At the moment, the app only has 2 methods:
     
     Saves a key to the database
@@ -19,7 +19,7 @@ Shaftoe is a vert simple LAMP script to encrypt messages using PGP public keys. 
 The idea behind this script is to allow applications to send secure communications to a user if they
 would like them. 
 
-For example, when signing up for a web applicatio the user provides a public pgp key. All future email communications from the app are encrypted using this public key.
+For example, when signing up for a web application the user provides a public pgp key. All future email communications from the app are encrypted using this public key.
 
 Example
 -------
