@@ -21,6 +21,12 @@ would like them.
 
 For example, when signing up for a web applicatio the user provides a public pgp key. All future email communications from the app are encrypted using this public key.
 
+Example
+-------
+A working example (which is also included in the source) can be found here:
+
+[http://toxiccode.com/shaftoe/example/](http://toxiccode.com/shaftoe/example/)
+
 Installation
 ------------
 Check out the project somewhere not in your apache document root.
@@ -61,4 +67,9 @@ Restart apache. Shaftoe should be available at yourserver.com/shaftoe
 
 If you'd like to install the example as well, just create a symbolic link to the example directory somewhere in your apache document root. By default it expects to placed in the same directory as the link to index.php
 
+F.A.Q
+-----
+
+1   Why PHP/MYSQL?
+    Because php-pgp works, and LAMP is so common. Chances are you already have it on your server.
 
