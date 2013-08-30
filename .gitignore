@@ -1,14 +1,14 @@
-lib-cov
-*.seed
-*.log
-*.csv
-*.dat
-*.out
-*.pid
-*.gz
+# Bootstrap
+app/bootstrap*
 
-pids
-logs
-results
+# Symfony directories
+vendor/*
+*/logs/*
+*/cache/*
+web/uploads/*
+web/bundles/*
 
-npm-debug.log
+# Configuration files
+app/config/parameters.ini
+app/config/parameters.yml
+app/config/config.php
