@@ -19,7 +19,7 @@ $app->post('/key', function (Request $request) use ($app){
     $key = $request->get('publickey');
     if(empty($email) || empty($key)){
         $ret = array (
-            "msg"=>"Missing input. Please provide a valid email address and public key.",
+            "msg"=>"Missing input. Please provide a valid identifier and public key.",
             "success"=>false
         );
         return $app->json($ret);
@@ -66,13 +66,20 @@ $app->post('/encrypt', function(Request $request) use ($app){
     $message = $request->get('message');
     if(empty($email) || empty($message)){
         $ret = array (
-            "msg"=>"Missing input. Please provide a valid email address and plaintext message.",
+            "msg"=>"Missing input. Please provide a valid identifier.",
             "success"=>false
         );
         return $app->json($ret);
     }
     $sql = "SELECT pgpkey from pgweb.pgkeys WHERE email = ?";
     $key = $app['db']->fetchColumn($sql, array((string) $email));
+    if(empty($key)){
+        $ret = array (
+                "msg"=>"Oh no! That identifier was not found.",
+                "success"=>false
+            );
+            return $app->json($ret);
+        }
     $key=  str_replace("\r", '', $key);   
     error_log($email);
     $gpg = new GPG();

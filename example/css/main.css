@@ -4,9 +4,15 @@
    Author's custom styles
    ========================================================================== */
 
+body{
+    margin-top: 40px;
+    height: 100%;
+    background: #000;
+}
 
-
-
+.jumbotron{
+    height: 700px;
+}
 
 
 

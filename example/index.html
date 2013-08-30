@@ -23,11 +23,11 @@
       <div class="container">
       <!--FIRST FORM -->
        <form id="addkey" role="form">
-       <h2>Start by adding an email address and a public key.</h2>
-       <h3>The key should be in ascii armored format, like <a href="http://www.pedaldrivenprogramming.com/wp-content/uploads/2009/11/pubkey1.txt">this</a></h3>
+       <h2>Psst! I've got a secret for you!</h2>
+       <h3>Start by entering your name (or email) and a public key. The key should be in ascii armored format, like <a href="http://www.pedaldrivenprogramming.com/wp-content/uploads/2009/11/pubkey1.txt">this</a>. If you've already done this, feel free to skip this part.</h3>
           <div class="form-group">
-            <label for="email">Email address</label>
-            <input type="email" class="form-control" id="email" placeholder="Enter email" required>
+            <label for="email">Name</label>
+            <input type="email" class="form-control" id="email" placeholder="Enter name" required>
           </div>
           <div class="form-group">
             <label for="publickey">Public Key</label>
@@ -40,18 +40,14 @@
         
         <!--SECOND FORM -->
         <form id="encrypt" role="form" style="display:none">
-        <h2 class="skiphide">Great, the key associated with <span id="theemail"> </span> has been saved</h2>
-        <h3>Type in a secret love letter and have it encrypted using the key associated with the email below</h3>
-          <div class="form-group">
-            <label for="email2">Email address</label>
+        <h2 class="skiphide">Great, the key associated with <span id="theemail"> </span> has been saved.</h2>
+        <h3>Click the button below to get your secret.</h3>
+          <div class="form-group addedhide">
+            <label for="email2">Name</label>
             <input type="email" name="email2" class="form-control" id="email2" placeholder="Enter email" required>
           </div>
-          <div class="form-group">
-            <label for="message">Message</label>
-            <textarea class="form-control" rows="3" id="message" placeholder="Message (keep it simple)" required></textarea>
-          </div>
           <span class="error"></span><br/>
-          <button type="button" id="submitencrypt" class="btn btn-default">Submit</button>
+          <button type="button" id="submitencrypt" class="btn btn-lg btn-primary">Tell me a secret!</button>
           <span class="pull-right"><a href="#" id="back">Back</a></span>
         </form>
 
@@ -68,6 +64,7 @@
         <script src="js/vendor/bootstrap.min.js"></script>
 
         <script src="js/main.js"></script>
+        <script src="quotes.json"></script>
         <script type="text/javascript">
         $("#submitadd").click(function(){
             $("body > .error").html("")
@@ -80,6 +77,9 @@
                     $("#email2").val($("#email").val())
                     $("#theemail").html($("#email").val())
                     $("#encrypt").show();
+                    $(".addedhide").hide();
+                    $(".skiphide").show()
+                    clearErrors();
                 }else{
                     $("#addkey div").addClass("has-error")
                     $("#addkey > .error").html(data.msg)
@@ -90,13 +90,15 @@
         $("#submitencrypt").click(function(){
             $("body > .error").html("")
             email = $("#email2").val()
-            message = $("#message").val()
-            $.post('/web/encrypt', {email : email, message: message}, function(data){
+            randomint = Math.floor(Math.random()*(quotes.length-1))
+            quote = quotes[randomint]
+            $.post('/web/encrypt', {email : email, message: quote}, function(data){
                 console.log(data)
                 if(data.success){
                     $("#encrypt").hide();
                     $("#ciphertext > span").html("<pre>" + data.msg + "</pre>")
                     $("#ciphertext").show()
+                    clearErrors()
                 }else{
                     $("#encrypt div").addClass("has-error")
                     $("#encrypt > .error").html(data.msg)
@@ -107,12 +109,18 @@
         $("#skip").click(function(){
             $("#addkey").hide();
             $("#encrypt").show();  
-            $(".skiphide")          
+            $(".skiphide").hide();
+            $(".addedhide").show();
+            clearErrors();          
         })
         $("#back").click(function(){
             $("#addkey").show();
-            $("#encrypt").hide();            
+            $("#encrypt").hide(); 
+            clearErrors();           
         })
+        function clearErrors(){
+            $(".error").html("");
+        }
         </script>
     </body>
 </html>
