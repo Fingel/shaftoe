@@ -41,7 +41,7 @@
         <!--SECOND FORM -->
         <form id="encrypt" role="form" style="display:none">
         <h2 class="skiphide">Great, the key associated with <span id="theemail"> </span> has been saved.</h2>
-        <h3>Click the button below to get your secret.</h3>
+        <h3>Click the button below to obtain your secret.</h3>
           <div class="form-group addedhide">
             <label for="email2">Name</label>
             <input type="email" name="email2" class="form-control" id="email2" placeholder="Enter email" required>
@@ -49,15 +49,16 @@
           <span class="error"></span><br/>
           <button type="button" id="submitencrypt" class="btn btn-lg btn-primary">Tell me a secret!</button>
           <span class="pull-right"><a href="#" id="back">Back</a></span>
-        </form>
-
-        <!-- SHOW CIPHERTEXT -->
+          <!-- SHOW CIPHERTEXT -->
         <div id="ciphertext" style="display: none">
-        <h2>Nice! Here is the ciphertext, that only a very special private key can decrypt.</h2>
             <span></span>
         </div>
+        </form>
+
+        
       </div>
     </div>
+    <footer><a href="http://www.pedaldrivenprogramming.com">Austin Riba</a> 2013</footer>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.1.min.js"><\/script>')</script>
 
@@ -95,7 +96,6 @@
             $.post('/web/encrypt', {email : email, message: quote}, function(data){
                 console.log(data)
                 if(data.success){
-                    $("#encrypt").hide();
                     $("#ciphertext > span").html("<pre>" + data.msg + "</pre>")
                     $("#ciphertext").show()
                     clearErrors()
@@ -115,7 +115,8 @@
         })
         $("#back").click(function(){
             $("#addkey").show();
-            $("#encrypt").hide(); 
+            $("#encrypt").hide();
+            $("#ciphertext").hide();
             clearErrors();           
         })
         function clearErrors(){
