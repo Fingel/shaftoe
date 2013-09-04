@@ -47,6 +47,8 @@ Make a directory somewhere in your apache root for shaftoe:
 
 `mkdir /var/www/shaftoe && cd /var/www/shaftoe`
 
+The following instructions are general for the Silex framework. Detailed instructions, including those for other webservers, can be found [here](http://silex.sensiolabs.org/doc/web_servers.html)
+
 Create a symbolic link to "web/index.php"
 
 `ln -s /home/ubuntu/Documents/shaftoe/web/index.php .`
